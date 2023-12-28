@@ -112,5 +112,4 @@ with open(file_path, 'r') as file:
 def part_one(grid):
     return sum([value for sublist in grid for value in sublist])
 
-print(f"Part one answer is: {part_one(grid)}")
-        
+print(f"Part one answer is: {part_one(grid)}")      

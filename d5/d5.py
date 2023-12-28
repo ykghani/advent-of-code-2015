@@ -69,18 +69,25 @@ def part_one_evaluate_string(inp):
     
     return cond1 and cond2 and cond3
 
-def part_two_eval(inp):
-    pass
+def part_two_eval(inp, pattern1, pattern2):
+    return pattern1.search(inp) and pattern2.search(inp)
+    
+    
 
-nice_count = 0
+nice_count_one, nice_count_two = 0, 0
+part2_cond1_pattern = re.compile(r'(\w{2}).*?\1')
+part2_cond2_pattern = re.compile(r'(\w)\w\1')
+
 with open(file_path, 'r') as file: 
     for line in file: 
         line = line.strip()
         if part_one_evaluate_string(line):
-            nice_count += 1
-    
+            nice_count_one += 1
+
+        if part_two_eval(line, part2_cond1_pattern, part2_cond2_pattern):
+            nice_count_two += 1
+            
 file.close()
 
-print(f'Part one answer is: {nice_count}')
-# print(evaluate_string('ugknbfddgicrmopn'))
-# print(evaluate_string(''))
+print(f'Part one answer is: {nice_count_one}')
+print(f'Part two answer is: {nice_count_two}')
