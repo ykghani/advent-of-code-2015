@@ -20,34 +20,36 @@ INPUT = 1321131112
 
 def next_look_and_say(val):
     val = str(val)
-    ans_str, val_dict = '', dict()
+    out = ''
     
-    uniq_vals = set(val)
-    
-    
-    
-    i = 0
-    while i < len(val):
-    # for i in range(len(val)):
-        val_to_count = val[i]
-        counter = 0
-        
-        for j in range(i, len(val)):
-            if val[j] == val_to_count:
-                counter += 1
+    if len(val) == 1:
+        return str(val.count(val[0])) + val
+    else:
+        string_splits = []
+        current = 1
+        current_seq = val[0]
+        for i in range(1, len(val)):
+            if val[i] == current_seq[-1]:
+                current_seq += val[i]
             else:
-                i = j + 1
-                break 
+                string_splits.append(current_seq)
+                current_seq = val[i]
         
-        val_dict[val_to_count] = counter
-        i += 1
+        string_splits.append(current_seq)
+        
+        for seq in string_splits:
+            count = seq.count(seq[0])
+            out += str(count) + str(seq[0])
+        
+    return out 
 
-    for key, val in val_dict.items():
-        ans_str += str(val) + str(key)
-    
-    return ans_str
+val = INPUT
+for _ in range(40):
+    val = next_look_and_say(val)
 
-print(next_look_and_say(1)) 
-print(next_look_and_say(11))
-print(next_look_and_say(21))
-    
+print(f"Part 1 answer: {len(val)}")
+
+for _ in range(10):
+    val = next_look_and_say(val)
+
+print(f"Part 2 answer is: {len(val)}")
