@@ -1,5 +1,4 @@
 #AOC 2015 - Day 8: https://adventofcode.com/2015/day/8
-import ast
 from pathlib import Path
 
 script_dir = Path(__file__).parent
