@@ -1,41 +1,42 @@
 '''
 Advent of Code 2015 Day 19 - Medicine for Rudolph
 '''
-
+from pathlib import Path
 import itertools
 
-file_path = 'd19_input.txt'
-
-# with open(file_path, 'r') as file: 
-#     lines = file.readlines()
+script_dir = Path(__file__).parent
+file_path = script_dir / 'd19_input.txt'
 
 
-replacements = {'H' : ['HO', 'OH'], 'O' : ['HH']}
+with open(file_path, 'r') as file: 
+    lines = file.readlines()
 
-# replacements = {}
-# for line in lines[:-1]:
-#     if '=>' in line: 
-#         key, val = line.strip().split(' => ')
-#         if key in replacements:
-#             replacements[key].append(val)
-#         else:
-#             replacements[key] = [val]
+replacements = {}
+for line in lines[:-1]:
+    if '=>' in line: 
+        key, val = line.strip().split(' => ')
+        if key in replacements:
+            replacements[key].append(val)
+        else:
+            replacements[key] = [val]
 
-# inp = lines[-1].strip()
+inp = lines[-1].strip()
+
+print(replacements)
+
+# replacements = {'H' : ['HO', 'OH'], 'O' : ['HH']}
 
 unique = set()
-inp = 'HOH'
+# inp = 'HOHOHO'
 
-for sub in range(1, len(inp)):
-    for i in range(0, len(inp), sub):
-        if inp[i: sub] in replacements:
-            for val in replacements[inp[i: sub]]:
-                out = ''
-                out += replacements[val]
-                out += inp[sub: ]
-                inp.add(out)
 
-print(unique)
-print(f"Part 1 answer: {len(unique)}")
-            
-    
+for start in range(len(inp)):
+    for length in range(len(inp) - start + 1):
+        # out = inp[: start]
+        substr = inp[start: start + length]
+        if substr in replacements:
+            for rep in replacements[substr]:
+                out =  inp[: start] + rep + inp[start + length:]
+                unique.add(out)
+
+print(f"Part one: {len(unique)}")

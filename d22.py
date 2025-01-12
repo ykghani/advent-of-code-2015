@@ -2,6 +2,8 @@
 Advent of Code 2015 Day 22 - Wizard Simulator 20XX 
 STRATEGY - try random spell selections across 500 battles and see which ones win and use the least mana? 
 '''
+
+
 from random import randint
 
 boss = {'hp': 51, 'dmg': 9}
